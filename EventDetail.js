@@ -8,7 +8,8 @@ export default class EventDetail extends Component {
         super(props);
         this.state={
             eventDetails:[],
-            loader:true
+            loader:true,
+            id:0
         }
 
     }
@@ -24,14 +25,23 @@ export default class EventDetail extends Component {
             console.log(responseJson)
             this.setState({
                 eventDetails:responseJson.events,
+                id:0,
                 loader:false
+            },()=>{
+                this.setID();
             })
         })
         .catch((error) => {
             console.error(error);
         });
 }
-
+setID=()=>{
+    this.state.eventDetails.map((value)=>{
+        this.setState({
+            id:value.event_id
+        })
+    })
+}
     
     componentDidMount(){
         this.fetchEventsByCategory();
@@ -52,7 +62,9 @@ export default class EventDetail extends Component {
                                         <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                                             <Icon name="arrow-back" size={30} color="black" />
                                         </TouchableOpacity>
-                                        <TouchableOpacity >
+                                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Registration',{
+                                            event_id:this.state.id
+                                        })}>
                                             <View style={{width:60,height:29,backgroundColor:'green',borderRadius: 13,justifyContent:'space-around'}}><Text style={{alignSelf:'center',color:"white"}}>Register</Text></View>
                                         </TouchableOpacity>
                                     </View>
@@ -65,9 +77,18 @@ export default class EventDetail extends Component {
                                             <View key={index}>
                                                 <View style={styles.row2}>
                                                     <View style={{ flex: 1, flexDirection: 'column', height: 235, justifyContent: 'center', alignItems: 'center' }}>
-                                                        <Image source={require('./images/eventposter.jpg')} style={{
-                                                            alignSelf: 'center', resizeMode: 'cover', height: 235, width: 160
-                                                        }} />
+                                                        {
+                                                            value.event_poster!==''?(
+                                                                <Image source={{uri: 'http://portal.predot.co.in/'+value.event_poster}} style={{
+                                                                    alignSelf: 'center', resizeMode: 'cover', height: 235, width: 160
+                                                                }} />
+                                                            ):(
+                                                                <Image source={require('./images/events.jpeg')} style={{
+                                                                    alignSelf: 'center', resizeMode: 'cover', height: 235, width: 160
+                                                                }} />
+                                                            )
+                                                        }
+                                                        
                                                     </View>
                                                 </View>
                                                 <View style={styles.row3}>

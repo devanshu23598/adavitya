@@ -63,7 +63,15 @@ export default class EventByCategory extends Component {
                                         <View style={{ flex: 1, flexDirection: 'row' }}>
                                             <View style={{ flex: 0.28 }}>
                                                 <View style={{ width: 100, height: 120,marginLeft:10 }}>
-                                                    <Image source={require('./images/eventposter.jpg')} style={{ width: 100, height: 120, resizeMode: 'cover' }} />
+                                                    {
+                                                        value.event_poster!=''?(
+                                                    <Image source={{uri: `http://portal.predot.co.in/${value.event_poster}`}} style={{ width: 100, height: 120, resizeMode: 'cover' }} />
+
+                                                        ):(
+                                                    <Image source={require('./images/events.jpeg')} style={{ width: 100, height: 120, resizeMode: 'cover' }} />
+
+                                                        )
+                                                    }
                                                 </View>
                                             </View>
                                             <View style={{ flex: 0.52 ,marginLeft:10}}>

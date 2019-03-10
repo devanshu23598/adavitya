@@ -5,6 +5,7 @@ import EventDetail from '../EventDetail';
 import CategoryList from '../CategoryList';
 import SplashScreen from '../SplashScreen'
 import Developers from '../Developers';
+import Registration from '../Registration';
 const AppNavigator=createStackNavigator({
     Home:{
         screen:HomeScreen
@@ -23,6 +24,9 @@ const AppNavigator=createStackNavigator({
     },
     Developers:{
         screen:Developers
+    },
+    Registration:{
+        screen:Registration
     }
 
 },
